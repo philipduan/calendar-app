@@ -11,6 +11,12 @@
   border-radius: 30%;
 }
 
+.selected {
+  border: 1px solid #e63946;
+  border-radius: 30%;
+  background-color: #e63946;
+}
+
 .today {
   border: 1px solid #457b9d;
   border-radius: 30%;

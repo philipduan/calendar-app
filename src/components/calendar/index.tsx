@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext, useCallback } from "react";
 import moment from "moment";
 import CalendarBodyDay from "./CalendarBodyDay";
 import CalendarHeaderBar from "./CalendarHeaderBar";
 import CalenderWeekdaysBar from "./CalenderWeekdaysBar";
 import CalendarBodyMonth from "./CalendarBodyMonth";
 import CalendarBodyYear from "./CalendarBodyYear";
+import AppContext from "../../context";
+import { ReducerTypes } from "../../reducer";
 
 export enum SelectionMode {
   None = "",
@@ -17,10 +19,22 @@ export interface DayDetail {
   year: number;
   ofMonth: boolean;
   today: boolean;
+  selected: boolean;
 }
 
 const Calendar = () => {
   const monthLongNameArry: Array<string> = moment.months();
+
+  const { dispatch } = useContext(AppContext);
+
+  const dateDispatch = useCallback(
+    (date) =>
+      dispatch({
+        type: ReducerTypes.UpdateDate,
+        payload: date,
+      }),
+    [dispatch]
+  );
 
   const [date, setDate] = useState(moment().date());
   const [weeks, setWeeks] = useState<Array<Array<DayDetail>>>([]);
@@ -29,6 +43,7 @@ const Calendar = () => {
   const [modeSelection, setModeSelection] = useState<string>("");
 
   useEffect(() => {
+    dateDispatch(`${date}-${month + 1}-${year}`);
     const today = moment();
     const selectedDate = moment(`${date}-${month + 1}-${year}`, "DD-MM-YYYY");
     const selectedDateMonth = selectedDate.month();
@@ -52,6 +67,7 @@ const Calendar = () => {
         year: selectedDateMonth ? selectedDateYear : selectedDateYear - 1,
         ofMonth: false,
         today: false,
+        selected: false,
       });
     }
 
@@ -62,7 +78,11 @@ const Calendar = () => {
         year: selectedDateYear,
         ofMonth: true,
         today:
-          +selectedDate.format("D") === i &&
+          today.date() === i &&
+          today.month() === selectedDateMonth &&
+          today.year() === selectedDateYear,
+        selected:
+          date === i &&
           today.month() === selectedDateMonth &&
           today.year() === selectedDateYear,
       });
@@ -77,6 +97,7 @@ const Calendar = () => {
           selectedDateMonth === 11 ? selectedDateYear + 1 : selectedDateYear,
         ofMonth: false,
         today: false,
+        selected: false,
       });
     }
 
@@ -87,7 +108,7 @@ const Calendar = () => {
     setWeeks(results);
 
     return () => {};
-  }, [date, month, year]);
+  }, [date, month, year, dateDispatch]);
 
   return (
     <div>

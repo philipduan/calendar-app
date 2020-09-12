@@ -35,9 +35,9 @@ const CalendarBodyDay = (props: Props) => {
           >
             {week.map((dayDetail: DayDetail, dayIndex: number) => (
               <Grid
-                className={
-                  dayDetail.today ? "clickable hover today" : "clickable hover"
-                }
+                className={`${dayDetail.today ? "today" : ""} ${
+                  dayDetail.ofMonth ? "hover clickable" : ""
+                } ${dayDetail.selected ? "selected" : ""}`}
                 item
                 key={+`${weekIndex}${dayIndex}${dayDetail.day}`}
                 xs={1}
