@@ -34,7 +34,7 @@ const CalendarBodyMonth = (props: Props) => {
       style={{
         border: "1px solid black",
         backgroundColor: "#f1faee",
-        height: "100%",
+        height: 420,
       }}
     >
       {months.length ? (
