@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { DayDetail } from "./index";
 import "./calendar.css";
+import AppContext from "../../context";
+import { ReducerTypes } from "../../reducer";
 
 interface Props {
   weeks: Array<Array<DayDetail>>;
@@ -9,7 +11,17 @@ interface Props {
 }
 
 const CalendarBodyDay = (props: Props) => {
+  const { dispatch } = useContext(AppContext);
+
   const { weeks, setDate } = props;
+
+  const selectedDayClick = (dayDetail: DayDetail) => {
+    if (dayDetail.ofMonth) setDate(dayDetail.day);
+    dispatch({
+      type: ReducerTypes.UpdateDate,
+      payload: `${dayDetail.day}-${dayDetail.month + 1}-${dayDetail.year}`,
+    });
+  };
 
   return (
     <Grid
@@ -35,13 +47,13 @@ const CalendarBodyDay = (props: Props) => {
           >
             {week.map((dayDetail: DayDetail, dayIndex: number) => (
               <Grid
-                className={`${dayDetail.today ? "today" : ""} ${
-                  dayDetail.ofMonth ? "hover clickable" : ""
-                } ${dayDetail.selected ? "selected" : ""}`}
+                className={`hover clickable ${dayDetail.today ? "today" : ""} ${
+                  dayDetail.selected ? "selected" : ""
+                }`}
                 item
                 key={+`${weekIndex}${dayIndex}${dayDetail.day}`}
                 xs={1}
-                onClick={() => setDate(dayDetail.day)}
+                onClick={() => selectedDayClick(dayDetail)}
               >
                 <Typography
                   variant="h5"

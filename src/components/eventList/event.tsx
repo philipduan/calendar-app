@@ -25,7 +25,7 @@ const Event = () => {
     });
   };
   return (
-    <div>
+    <div style={{ height: "85vh", overflowY: "scroll" }}>
       {state.selectedDate &&
       state.eventList &&
       state.eventList[state.selectedDate] &&
