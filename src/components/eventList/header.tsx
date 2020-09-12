@@ -20,7 +20,7 @@ const Header = (props: Props) => {
       style={{ paddingLeft: 16, marginBottom: 20 }}
     >
       <Grid item xs={6}>
-        <Typography variant="h5">{`${state.selectedDate} Events`}</Typography>
+        <Typography variant="h5">{`Events for ${state.selectedDate}`}</Typography>
       </Grid>
       <Grid container item xs={1} justify="center">
         <AddCircleOutlineOutlinedIcon
