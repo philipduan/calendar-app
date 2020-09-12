@@ -9,7 +9,7 @@ import { EventTypes } from "../eventForm";
 interface color {
   [key: string]: string;
 }
-const eventTypeColor: color = {
+export const eventTypeColor: color = {
   [EventTypes.Appointment]: "#e63946",
   [EventTypes.Meeting]: "#a8dadc",
   [EventTypes.Task]: "#457b9d",
@@ -19,11 +19,15 @@ const Event = () => {
   const { state, dispatch } = useContext(AppContext);
 
   const deleteEvent = (index: number) => {
+    const eventsToSplice: Array<EventInterface> =
+      state.eventList[state.selectedDate];
+    eventsToSplice.splice(index, 1);
     dispatch({
       type: ReducerTypes.DeleteEvent,
-      payload: index,
+      payload: eventsToSplice,
     });
   };
+
   return (
     <div style={{ height: "85vh", overflowY: "scroll" }}>
       {state.selectedDate &&

@@ -6,19 +6,22 @@ import EventForm from "./components/eventForm";
 import { Dialog } from "@material-ui/core";
 import reducer from "./reducer";
 import AppContext, { initialState } from "./context";
+import Legend from "./components/legend";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
+
   return (
     <AppContext.Provider value={{ state, dispatch }}>
       <div className="App" style={{ padding: 10 }}>
         <Grid container spacing={2}>
           <Grid item xs={8}>
             <Calendar />
+            <Legend />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={4} style={{ padding: 0 }}>
             <EventList isFormOpen={isFormOpen} setIsFormOpen={setIsFormOpen} />
           </Grid>
         </Grid>

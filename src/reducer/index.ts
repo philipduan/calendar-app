@@ -49,13 +49,11 @@ const reducer = (state: State, action: Action) => {
         },
       };
     case ReducerTypes.DeleteEvent:
-      const eventsToSplice: Array<Event> = state.eventList[state.selectedDate];
-      eventsToSplice.splice(action.payload, 1);
       return {
         ...state,
         eventList: {
           ...state.eventList,
-          [state.selectedDate]: eventsToSplice,
+          [state.selectedDate]: action.payload,
         },
       };
     default:
