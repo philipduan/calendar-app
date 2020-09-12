@@ -11,7 +11,8 @@ interface Props {
 }
 
 const CalendarBodyDay = (props: Props) => {
-  const { dispatch } = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
+  const { eventList } = state;
 
   const { weeks, setDate } = props;
 
@@ -19,7 +20,9 @@ const CalendarBodyDay = (props: Props) => {
     if (dayDetail.ofMonth) setDate(dayDetail.day);
     dispatch({
       type: ReducerTypes.UpdateDate,
-      payload: `${dayDetail.day}-${dayDetail.month + 1}-${dayDetail.year}`,
+      payload: `${dayDetail.day}-${dayDetail.month < 10 ? "0" : ""}${
+        dayDetail.month + 1
+      }-${dayDetail.year}`,
     });
   };
 
@@ -61,6 +64,32 @@ const CalendarBodyDay = (props: Props) => {
                   style={{ color: dayDetail.ofMonth ? "#000000" : "#a7afb2" }}
                 >
                   {dayDetail.day || ""}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  align="center"
+                  style={{
+                    color: "#a8dadc",
+                    visibility: eventList[
+                      `${dayDetail.day}-${dayDetail.month < 10 ? "0" : ""}${
+                        dayDetail.month + 1
+                      }-${dayDetail.year}`
+                    ]
+                      ? "visible"
+                      : "hidden",
+                  }}
+                >
+                  {eventList[
+                    `${dayDetail.day}-${dayDetail.month < 10 ? "0" : ""}${
+                      dayDetail.month + 1
+                    }-${dayDetail.year}`
+                  ]
+                    ? eventList[
+                        `${dayDetail.day}-${dayDetail.month < 10 ? "0" : ""}${
+                          dayDetail.month + 1
+                        }-${dayDetail.year}`
+                      ].length
+                    : `0`}
                 </Typography>
               </Grid>
             ))}

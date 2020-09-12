@@ -33,6 +33,7 @@ const Event = () => {
         state.eventList[state.selectedDate].map(
           (event: EventInterface, index: number) => (
             <CardHeader
+              key={`${event.name}-${index}`}
               avatar={
                 <Avatar style={{ backgroundColor: eventTypeColor[event.type] }}>
                   {event.type}
