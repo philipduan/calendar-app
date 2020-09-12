@@ -70,13 +70,19 @@ const CalendarBodyDay = (props: Props) => {
                   align="center"
                   style={{
                     color: "#a8dadc",
-                    visibility: eventList[
-                      `${dayDetail.day}-${dayDetail.month < 10 ? "0" : ""}${
-                        dayDetail.month + 1
-                      }-${dayDetail.year}`
-                    ]
-                      ? "visible"
-                      : "hidden",
+                    visibility:
+                      eventList[
+                        `${dayDetail.day}-${dayDetail.month < 10 ? "0" : ""}${
+                          dayDetail.month + 1
+                        }-${dayDetail.year}`
+                      ] &&
+                      eventList[
+                        `${dayDetail.day}-${dayDetail.month < 10 ? "0" : ""}${
+                          dayDetail.month + 1
+                        }-${dayDetail.year}`
+                      ].length
+                        ? "visible"
+                        : "hidden",
                   }}
                 >
                   {eventList[
