@@ -20,7 +20,7 @@ const CalendarBodyDay = (props: Props) => {
     if (dayDetail.ofMonth) setDate(dayDetail.day);
     dispatch({
       type: ReducerTypes.UpdateDate,
-      payload: `${dayDetail.day}-${dayDetail.month < 10 ? "0" : ""}${
+      payload: `${dayDetail.day}-${dayDetail.month < 9 ? "0" : ""}${
         dayDetail.month + 1
       }-${dayDetail.year}`,
     });
@@ -50,8 +50,12 @@ const CalendarBodyDay = (props: Props) => {
           >
             {week.map((dayDetail: DayDetail, dayIndex: number) => (
               <Grid
-                className={`hover clickable ${dayDetail.today ? "today" : ""} ${
-                  dayDetail.selected ? "selected" : ""
+                className={`hover  clickable ${
+                  dayDetail.selected
+                    ? "selected"
+                    : dayDetail.today
+                    ? "today"
+                    : ""
                 }`}
                 item
                 key={+`${weekIndex}${dayIndex}${dayDetail.day}`}
@@ -72,12 +76,12 @@ const CalendarBodyDay = (props: Props) => {
                     color: "#a8dadc",
                     visibility:
                       eventList[
-                        `${dayDetail.day}-${dayDetail.month < 10 ? "0" : ""}${
+                        `${dayDetail.day}-${dayDetail.month < 9 ? "0" : ""}${
                           dayDetail.month + 1
                         }-${dayDetail.year}`
                       ] &&
                       eventList[
-                        `${dayDetail.day}-${dayDetail.month < 10 ? "0" : ""}${
+                        `${dayDetail.day}-${dayDetail.month < 9 ? "0" : ""}${
                           dayDetail.month + 1
                         }-${dayDetail.year}`
                       ].length
@@ -86,12 +90,12 @@ const CalendarBodyDay = (props: Props) => {
                   }}
                 >
                   {eventList[
-                    `${dayDetail.day}-${dayDetail.month < 10 ? "0" : ""}${
+                    `${dayDetail.day}-${dayDetail.month < 9 ? "0" : ""}${
                       dayDetail.month + 1
                     }-${dayDetail.year}`
                   ]
                     ? eventList[
-                        `${dayDetail.day}-${dayDetail.month < 10 ? "0" : ""}${
+                        `${dayDetail.day}-${dayDetail.month < 9 ? "0" : ""}${
                           dayDetail.month + 1
                         }-${dayDetail.year}`
                       ].length
