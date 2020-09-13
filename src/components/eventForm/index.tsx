@@ -32,11 +32,7 @@ const EventForm = (props: Props) => {
 
   const [name, setName] = useState<string>("");
   const [type, setType] = useState<string>(EventTypes.Appointment);
-  const [time, setTime] = useState<string>(
-    `${
-      moment().hour() - 10 < 0 ? `0${moment().hour()}` : `${moment().hour()}`
-    }:00`
-  );
+  const [time, setTime] = useState<string>(`${moment().format("HH")}:00`);
 
   const onFormSubmit = (event: React.FormEvent) => {
     event.preventDefault();

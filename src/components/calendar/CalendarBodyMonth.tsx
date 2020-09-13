@@ -16,6 +16,7 @@ const CalendarBodyMonth = (props: Props) => {
   useEffect(() => {
     let monthArr: Array<Array<string>> = [];
     for (let i = 0; i < 4; i++) {
+      //Create 4 rows 3 columns of month name
       monthArr.push(monthLongNameArry.slice(3 * i, 3 * (i + 1)));
     }
     setMonths(monthArr);
