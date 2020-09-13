@@ -16,6 +16,7 @@ const CalendarBodyYear = (props: Props) => {
     const yearsArr: Array<Array<number>> = [];
     const currentYear = moment().year();
     for (let i = 0; i < 4; i++) {
+      //Create 4 rows 3 columns of years
       yearsArr.push([
         currentYear + 3 * i,
         currentYear + 3 * i + 1,

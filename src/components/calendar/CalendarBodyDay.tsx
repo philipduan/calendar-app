@@ -24,11 +24,21 @@ const CalendarBodyDay = (props: Props) => {
     });
   };
 
+  /**
+   * Convert day detail object to string as key to retreive events from context
+   * @param {DayDetail} dayDetail: Object with details of that day
+   * @return {string} in "DD-MM-YYYY" date format
+   */
   const convertDateToKeyString = (dayDetail: DayDetail) =>
     `${dayDetail.day < 10 ? "0" : ""}${dayDetail.day}-${
       dayDetail.month < 9 ? "0" : ""
     }${dayDetail.month + 1}-${dayDetail.year}`;
 
+  /**
+   * Check if the key exist in events list from context and is there events for specific key
+   * @param {DayDetail} dayDetail: Object with details of that day
+   * @return {boolean}
+   */
   const isKeyDefinedAndIsArrayNotEmpty = (dayDetail: DayDetail) => {
     const key = convertDateToKeyString(dayDetail);
     return eventList[key] && eventList[key].length;

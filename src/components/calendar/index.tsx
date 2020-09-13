@@ -52,6 +52,7 @@ const Calendar = () => {
     const results: Array<Array<DayDetail>> = [];
 
     for (let i = 0; i < firstDayOfMonth; i++) {
+      //Add days from previous month
       days.push({
         day: numberOfDaysOfPreviousMonth - firstDayOfMonth + i + 1,
         month: selectedDateMonth ? selectedDateMonth - 1 : 11,
@@ -67,6 +68,7 @@ const Calendar = () => {
     }
 
     for (let i = 1; i <= selectedDate.daysInMonth(); i++) {
+      //Add days of month
       days.push({
         day: +i,
         month: selectedDateMonth,
@@ -85,6 +87,7 @@ const Calendar = () => {
 
     const missingDays = 42 - days.length;
     for (let i = days.length; i < 42; i++) {
+      //Add days of next month
       days.push({
         day: missingDays - (42 - i) + 1,
         month: selectedDateMonth === 11 ? 0 : selectedDateMonth + 1,
@@ -100,6 +103,7 @@ const Calendar = () => {
     }
 
     for (let i = 0; i < 6; i++) {
+      //Create nested arrays for 6 weeks in 1 month view
       results.push(days.slice(7 * i, 7 * (i + 1)));
     }
 

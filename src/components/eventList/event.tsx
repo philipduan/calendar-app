@@ -19,7 +19,7 @@ const Event = () => {
   const { state, dispatch } = useContext(AppContext);
 
   const deleteEvent = (index: number) => {
-    const eventsToSplice: Array<EventInterface> =
+    const eventsToSplice: Array<EventInterface> = //Remove event before sending to the reducer
       state.eventList[state.selectedDate];
     eventsToSplice.splice(index, 1);
     dispatch({
