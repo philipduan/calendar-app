@@ -20,10 +20,18 @@ const CalendarBodyDay = (props: Props) => {
     if (dayDetail.ofMonth) setDate(dayDetail.day);
     dispatch({
       type: ReducerTypes.UpdateDate,
-      payload: `${dayDetail.day}-${dayDetail.month < 9 ? "0" : ""}${
-        dayDetail.month + 1
-      }-${dayDetail.year}`,
+      payload: convertDateToKeyString(dayDetail),
     });
+  };
+
+  const convertDateToKeyString = (dayDetail: DayDetail) =>
+    `${dayDetail.day < 10 ? "0" : ""}${dayDetail.day}-${
+      dayDetail.month < 9 ? "0" : ""
+    }${dayDetail.month + 1}-${dayDetail.year}`;
+
+  const isKeyDefinedAndIsArrayNotEmpty = (dayDetail: DayDetail) => {
+    const key = convertDateToKeyString(dayDetail);
+    return eventList[key] && eventList[key].length;
   };
 
   return (
@@ -74,31 +82,13 @@ const CalendarBodyDay = (props: Props) => {
                   align="center"
                   style={{
                     color: "#a8dadc",
-                    visibility:
-                      eventList[
-                        `${dayDetail.day}-${dayDetail.month < 9 ? "0" : ""}${
-                          dayDetail.month + 1
-                        }-${dayDetail.year}`
-                      ] &&
-                      eventList[
-                        `${dayDetail.day}-${dayDetail.month < 9 ? "0" : ""}${
-                          dayDetail.month + 1
-                        }-${dayDetail.year}`
-                      ].length
-                        ? "visible"
-                        : "hidden",
+                    visibility: isKeyDefinedAndIsArrayNotEmpty(dayDetail)
+                      ? "visible"
+                      : "hidden",
                   }}
                 >
-                  {eventList[
-                    `${dayDetail.day}-${dayDetail.month < 9 ? "0" : ""}${
-                      dayDetail.month + 1
-                    }-${dayDetail.year}`
-                  ]
-                    ? eventList[
-                        `${dayDetail.day}-${dayDetail.month < 9 ? "0" : ""}${
-                          dayDetail.month + 1
-                        }-${dayDetail.year}`
-                      ].length
+                  {isKeyDefinedAndIsArrayNotEmpty(dayDetail)
+                    ? eventList[convertDateToKeyString(dayDetail)].length
                     : `0`}
                 </Typography>
               </Grid>
